@@ -12,12 +12,6 @@ ngrok http --domain subtle-pigeon-newly.ngrok-free.app 8000 (replace with your d
 Environment variables to set in ``.env``:
 
 * `OPENAI_API_KEY`
-* ```
-  CAPITAL_ONE_API_KEY
-  ```
-* ```
-  SLACK_BOT_TOKEN
-  ```
-* ```
-  SLACKSIGNINGSECRET
-  ```
+* `CAPITAL_ONE_API_KEY`
+* `SLACK_BOT_TOKEN`
+* `SLACKSIGNINGSECRET`
