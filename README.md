@@ -15,3 +15,6 @@ Environment variables to set in ``.env``:
 * `CAPITAL_ONE_API_KEY`
 * `SLACK_BOT_TOKEN`
 * `SLACKSIGNINGSECRET`
+* `SENDGRID_API_KEY`
+* `ATLAS_URI`
+* `DB_NAME`
