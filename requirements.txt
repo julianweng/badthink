@@ -14,3 +14,4 @@ python-dotenv==1.0.0
 langchain==0.0.285
 openai==0.28.0
 pyyaml==6.0.*
+sendgrid==6.10.0

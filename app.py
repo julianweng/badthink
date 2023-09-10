@@ -27,25 +27,29 @@ from financial import create_account, get_account, add_money
 async def money_command(ack, say, command):
     ack("Fetching account...")
     account = await get_account(command["user_id"])
+    info = await app.client.users_info(user=command["user_id"])
+    print(command)
     if account is None:
-        await ack("You do not have an account. Creating one...")
-        await create_account(command["user_id"])
+        # await ack("You do not have an account. Creating one...")
+        await create_account(command["user_id"], info["user"]["profile"]["email"])
         account = await get_account(command["user_id"])
     await ack("You have $" + str(account["balance"]) + " in your account.")
 
 @app.command("/work")
 async def work_command(ack, say, command):
     account = await get_account(command["user_id"])
+    info = await app.client.users_info(user=command["user_id"])
     if account is None:
-        await ack("You do not have an account. Creating one...")
-        await create_account(command["user_id"])
-    await add_money(command["user_id"], 20, "Worked")
-    await ack("Expect your paycheck in 2-3 business days.")
+        # await ack("You do not have an account. Creating one...")
+        await create_account(command["user_id"], info["user"]["profile"]["email"])
+    await add_money(command["user_id"], 50, "Worked")
+    await ack("Expect your $50 paycheck in 2-3 business days.")
 
 @app.command("/create-account")
 async def create_account_command(ack, say, command):
     ack("Creating account...")
-    account = await create_account(command["user_id"], command["user_name"])
+    info = await app.client.users_info(user=command["user_id"])
+    account = await create_account(command["user_id"], info["user"]["profile"]["email"])
     if not account:
         await ack("You already have an account.")
     else:
@@ -80,9 +84,3 @@ def get_foo():
 @api.post("/slack/events")
 async def endpoint(req: Request, foo: str = Depends(get_foo)):
     return await app_handler.handle(req, {"foo": foo})
-
-
-# pip install -r requirements.txt
-# export SLACK_SIGNING_SECRET=***
-# export SLACK_BOT_TOKEN=xoxb-***
-# uvicorn async_app_custom_props:api --reload --port 3000 --log-level warning
